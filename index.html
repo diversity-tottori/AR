@@ -30,9 +30,10 @@
             arjs="sourceType: webcam; debugUIEnabled: false;"
         >
       <a-text
-        value="This content will always face you."
+        id="text"
+        value=""
         look-at="[gps-camera]"
-        scale="50 50 50"
+        scale="30 30 30"
         gps-entity-place="latitude: 35.515317814218726; longitude: 134.2144297651795;"
       ></a-text>
                 <a-image
@@ -44,6 +45,14 @@
             
             <a-camera gps-camera rotation-reader></a-camera>
         </a-scene>
-        
+
+    <script>
+      window.addEventListener('load', () => {
+        const text = document.getElementById('text');
+        text.addEventListener('gps-entity-place-update-positon', (event) => {
+          text.setAttribute('value', text.getAttribute('distanceMsg') + ' left');
+        });
+      });
+    </script>
     </body>
 </html>
