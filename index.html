@@ -7,7 +7,7 @@
         <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
     <style>
-      #debug {
+      #distance {
         position: fixed;
         z-index: 10000;
         background-color: rgba(0,0,0,.8);
@@ -47,11 +47,33 @@
             <a-camera gps-camera rotation-reader></a-camera>
         </a-scene>
     <script>
-      window.addEventListener('load', () => {
-        const text = document.getElementById('text');
-        text.addEventListener('gps-entity-place-update-positon', (event) => {
-          document.getElementById('debug').textContent = `{event.detail.distance}m`;
-          text.setAttribute('value', text.getAttribute('distanceMsg') + ' left');
+      window.addEventListener('load', function () {
+        const el = document.querySelector('[gps-entity-place]');
+        const distanceMsg = document.getElementById('distance');
+        const message = document.getElementById('message');
+        const directionLight = document.getElementById('directionLight');
+        const ambientLight = document.getElementById('ambientLight');
+        el.addEventListener('gps-entity-place-update-positon', (event) => {
+          distanceMsg.textContent = `あと${event.detail.distance}m`;
+          if(event.detail.distance <= 30) {
+            // 30m以下で明るくする、メッセージ表示、距離非表示
+            directionLight.setAttribute('intensity',1);
+            ambientLight.setAttribute('intensity',1);
+            distanceMsg.style.display = 'none';
+            message.style.display = 'block';
+          } else if(event.detail.distance <= 50) {
+            // 50m以下で近づくほど明るくする、メッセージ非表示、距離表示
+            directionLight.setAttribute('intensity',1 - event.detail.distance / 50);
+            ambientLight.setAttribute('intensity',1 - event.detail.distance / 50);
+            distanceMsg.style.display = 'block';
+            message.style.display = 'none';
+          } else {
+            // 50mより離れると、明るさ0、メッセージ非表示、距離表示
+            directionLight.setAttribute('intensity',0);
+            ambientLight.setAttribute('intensity',0);
+            distanceMsg.style.display = 'block';
+            message.style.display = 'none';
+          }
         });
       });
     </script>
