@@ -33,23 +33,13 @@
         scale="5 5 5"
       ></a-box>
       <a-text
-        id="text"
-        value=""
+        value="ダンゴムシ"
         look-at="[gps-camera]"
         scale="10 10 10"
-        position="0 0 0"
+        position="0 2 0"
         gps-entity-place="latitude: 35.515317814218726; longitude: 134.2144297651795;"
       ></a-text>
       <a-camera gps-camera rotation-reader> </a-camera>
     </a-scene>
-    <script>
-            window.addEventListener('load', () => {
-        const text = document.getElementById('text');
-        text.addEventListener('gps-entity-place-update-positon', (event) => {
-          document.getElementById('debug').textContent = `{event.detail.distance}m`;
-          text.setAttribute('value', text.getAttribute('distanceMsg') + ' left');
-        });
-      });
-    </script>
   </body>
 </html>
