@@ -39,13 +39,7 @@
         position="0 5 0"
         gps-entity-place="latitude: 35.515317814218726; longitude: 134.2144297651795;"
       ></a-text>
-      <a-camera gps-camera rotation-reader> </a-camera>
+      <a-camera gps-camera="gpsMinDistance:10;" rotation-reader> </a-camera>
     </a-scene>
-    <script>
-      window.addEventListener('load', () => {
-const distanceMsg = document.querySelector('[gps-entity-place]').getAttribute('distanceMsg');
-console.log(distanceMsg);
-        });
-    </script>
   </body>
 </html>
