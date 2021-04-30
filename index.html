@@ -27,12 +27,19 @@
             arjs="sourceType: webcam; debugUIEnabled: false;"
         >
                 <a-image
-                    id="text"
                     src="assets/asset.png"
                     look-at="[gps-camera]"
                     scale="5 5 5"
                     gps-entity-place="latitude: 35.515317814218726; longitude: 134.2144297651795;"
                 ></a-image>
+      <a-text
+        id="asset"
+        value=""
+        look-at="[gps-camera]"
+        scale="30 30 30"
+        position="0 55 0"
+        gps-entity-place="latitude: <add-your-latitude>; longitude: <add-your-longitude>;"
+      ></a-text>
                 <a-image
                     src="assets/mark.png"
                     look-at="[gps-camera]"
@@ -44,7 +51,7 @@
         </a-scene>
     <script>
       window.addEventListener('load', () => {
-        const text = document.getElementById('text');
+        const text = document.getElementById('asset');
         text.addEventListener('gps-entity-place-update-positon', (event) => {
           document.getElementById('debug').textContent = `あと${event.detail.distance}m`;
           text.setAttribute('value', text.getAttribute('distanceMsg') + ' left');
