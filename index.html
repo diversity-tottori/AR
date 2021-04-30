@@ -43,12 +43,9 @@
     </a-scene>
     <script>
       window.addEventListener('load', () => {
-        const text = document.getElementById('text');
-        text.addEventListener('gps-entity-place-update-positon', (event) => {
-          document.getElementById('debug').textContent = `あと${event.detail.distance}m`;
-          text.setAttribute('value', text.getAttribute('distanceMsg') + ' left');
+const distanceMsg = document.querySelector('[gps-entity-place]').getAttribute('distanceMsg');
+console.log(distanceMsg);
         });
-      });
     </script>
   </body>
 </html>
